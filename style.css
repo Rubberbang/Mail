@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    background: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('letter.PNG'), auto;
+}
+
+.mailbox {
+    position: relative;
+    width: 200px;
+    height: auto;
+}
+
+.mailbox img {
+    width: 100%;
+    cursor: pointer;
+}
