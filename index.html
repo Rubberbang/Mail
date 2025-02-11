@@ -1,16 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mail Animation</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Truck Animation</title>
+    <style>
+
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom, #E0F6FF, #87CEEB);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            cursor: url("letter.png") 16 12, auto;
+        }
+
+        /* Mailbox Container */
+        .mailbox {
+            position: relative;
+            width: 200px;
+            height: 150px;
+        }
+
+        /* Mailbox Button */
+        #mailButton {
+            padding: 0;
+            border: none;
+            background: transparent;
+            cursor: url("letter.png"), auto;
+            outline: none;
+        }
+
+        /* Mailbox Image */
+        .mailbox img {
+            width: 90%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover Effect on Mailbox */
+        .mailbox img:hover {
+            transform: scale(1.1);
+        }
+
+
+
+        /* Truck Container */
+        #truckContainer {
+            position: absolute;
+            top: 50%; /* Vertically center the truck */
+            left: 100%; /* Start the truck off-screen on the right */
+            transform: translateY(-50%); /* Adjust to the center vertically */
+            transition: left 5s linear;
+        }
+
+        /* Truck Image */
+        #truck {
+            width: 900px; /* Set the truck width to 900px */
+            height: auto;
+        }
+
+        /* Plane Container */
+    #planeContainer {
+        position: absolute;
+        top: 50%; /* Vertically center the plane */
+        left: -100%; /* Start the plane off-screen on the left */
+        transform: translateY(-50%); /* Adjust to the center vertically */
+        transition: left 5s linear;
+}
+
+    /* Plane Image */
+    #plane {
+        width: 900px; /* Set the plane width to 900px */
+        height: auto;
+}
+
+    #cardImage {
+            width: 40px;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+    #cardImage:hover {
+        transform: scale(14);
+    }
+
+    #confirmationBox {
+        display: none;
+        position: absolute;
+        top: 770px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(to bottom, #E0F6FF, #87CEEB);
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    }
+
+    </style>
 </head>
+
 <body>
+
+    <!-- Button to trigger animation -->
     <div class="mailbox">
-        <img src="mailbox.PNG" alt="PostNL Mailbox" id="mailbox">
+        <button id="mailButton">
+            <img src="mailbox.png" alt="Mailbox" id="mailboxImage">
+        </button>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="script.js"></script>
+
+    <!-- Truck Image initially off-screen -->
+    <div id="truckContainer">
+        <img src="truck.png" alt="Truck" id="truck">
+    </div>
+
+    <!-- Plane Image initially off-screen on the left -->
+    <div id="planeContainer">
+        <img src="plane.png" alt="Plane" id="plane">
+    </div>
+
+    <!-- Container for the card image -->
+    <div id="cardContainer" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <img src="card.PNG" alt="Card" id="cardImage">
+    </div>
+
+    <div id="confirmationBox">
+        <button class="option-button" id="yesButton">Yes</button>
+        <button class="option-button" id="noButton">No</button>
+    </div>
+
+    <script>
+        document.getElementById("mailButton").addEventListener("click", function () {
+        const cardContainer = document.getElementById("cardContainer");
+        const truckContainer = document.getElementById("truckContainer");
+        const planeContainer = document.getElementById("planeContainer");
+        const mailButton = document.getElementById("mailButton");
+
+        // Hide the cursor
+        document.body.style.cursor = "none"; // Hide the cursor after clicking
+
+        setTimeout(function () {
+            document.body.style.cursor = 'url("quil.png"), auto'
+        }, 13000);
+
+        setTimeout(function() {
+            // Show the confirmation box
+            document.getElementById("confirmationBox").style.display = "block";
+        }, 16000); // 13 seconds in milliseconds
+
+        // Hide the cursor when over the button
+        document.getElementById("mailButton").style.cursor = "none";
+
+        // Move the truck across the screen to the left
+        truckContainer.style.left = "0";
+
+        // Wait for the truck to reach the left side, then move it back off-screen to the left
+        setTimeout(function () {
+            truckContainer.style.left = "-100%"; // Move the truck off-screen to the left
+        }, 5000); // Adjust the time to match the truck's animation duration
+
+        // Hide the mailbox image after 4 seconds
+        setTimeout(function () {
+            mailButton.remove(); // Hides the image but keeps it in the DOM
+        }, 4000); // Hide the mailbox image 1 second before the truck finishes the animation
+
+        // Show the plane after 10 seconds, move it from left to right
+        setTimeout(function () {
+            planeContainer.style.left = "100%"; // Move the plane across the screen to the right
+        }, 10000); // Wait 10 seconds before moving the plane
+
+        setTimeout(function () {
+            cardContainer.style.display = "block";
+        }, 13000);
+
+
+    });
+
+        document.getElementById("yesButton").addEventListener("click", function () {
+        // Create a new image element for the confetti gif
+        let confetti = document.createElement("img");
+        confetti.src = "confetti.gif"; // Replace with the correct path
+        confetti.id = "confettiEffect";
+
+        // Style the confetti to cover the screen
+        confetti.style.position = "fixed";
+        confetti.style.top = "0";
+        confetti.style.left = "0";
+        confetti.style.width = "100vw";
+        confetti.style.height = "100vh";
+        confetti.style.zIndex = "9999"; // Ensure it's on top
+        confetti.style.pointerEvents = "none"; // So it doesn't interfere with clicking
+
+        // Append the confetti image to the body
+        document.body.appendChild(confetti);
+
+
+    });
+
+        document.getElementById("noButton").addEventListener("click", function() {
+        // Remove the current No button
+        document.getElementById("noButton").remove();
+
+        // Create a new Yes button
+        let newYesButton = document.createElement("button");
+        newYesButton.classList.add("option-button");
+        newYesButton.id = "newYesButton";
+        newYesButton.textContent = "Yes";
+
+        // Append the new Yes button to the confirmation box
+        document.getElementById("confirmationBox").appendChild(newYesButton);
+
+        document.getElementById("newYesButton").addEventListener("click", function () {
+        // Create a new image element for the confetti gif
+        let confetti = document.createElement("img");
+        confetti.src = "confetti.gif"; // Replace with the correct path
+        confetti.id = "confettiEffect";
+
+        // Style the confetti to cover the screen
+        confetti.style.position = "fixed";
+        confetti.style.top = "0";
+        confetti.style.left = "0";
+        confetti.style.width = "100vw";
+        confetti.style.height = "100vh";
+        confetti.style.zIndex = "9999"; // Ensure it's on top
+        confetti.style.pointerEvents = "none"; // So it doesn't interfere with clicking
+
+        // Append the confetti image to the body
+        document.body.appendChild(confetti);
+
+
+    });
+
+
+    });
+</script>
+
 </body>
+
 </html>

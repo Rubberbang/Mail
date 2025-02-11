@@ -1,3 +1,4 @@
+/* Reset page background and center content */
 body {
     margin: 0;
     background: #f0f0f0;
@@ -5,16 +6,49 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: url('letter.PNG'), auto;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Mailbox Container */
 .mailbox {
     position: relative;
     width: 200px;
-    height: auto;
+    height: 150px;
+    cursor: url("letter.png") 16 12, auto; /* Custom cursor */
 }
 
+/* Mailbox Button */
+#mailButton {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Mailbox Image */
 .mailbox img {
     width: 100%;
-    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect on Mailbox */
+.mailbox img:hover {
+    transform: scale(1.1);
+}
+
+/* Truck Container */
+#truckContainer {
+    position: absolute;
+    top: 50%; /* Vertically center the truck */
+    left: 100%; /* Start the truck off-screen on the right */
+    transform: translateY(-50%); /* Adjust to the center vertically */
+    transition: left 5s linear;
+}
+
+/* Truck Image */
+#truck {
+    width: 100px; /* Adjust the size as needed */
+    height: auto;
 }
